@@ -27,6 +27,25 @@ function iniciarSuperNexus() {
   const content = document.createElement('div');
   content.className = 'nt-content';
 
+  // Selector de idioma (ES / EN)
+  const btnLang = document.createElement('button');
+  btnLang.className = 'nt-toggle';
+  btnLang.type = 'button';
+
+  const actualizarBtnLang = () => {
+    btnLang.textContent = ntLang.toUpperCase();
+    btnLang.title = ntT('langBtnTitle');
+  };
+  actualizarBtnLang();
+
+  btnLang.onclick = () => {
+    ntSetLang(ntLang === 'es' ? 'en' : 'es');
+    actualizarBtnLang();
+    if (window.location.pathname.includes('/decks') && typeof refrescarIdiomaDecks === 'function') {
+      refrescarIdiomaDecks(content);
+    }
+  };
+
   const btnToggle = document.createElement('button');
   btnToggle.className = 'nt-toggle';
   btnToggle.type = 'button';
@@ -38,6 +57,7 @@ function iniciarSuperNexus() {
 
   panel.appendChild(dragHandle);
   panel.appendChild(content);
+  panel.appendChild(btnLang);
   panel.appendChild(btnToggle);
   document.body.appendChild(panel);
 

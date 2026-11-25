@@ -1,5 +1,5 @@
 // ==========================================
-// --- MÓDULO 1: GESTIÓN DE BARAJAS (Super Nexus v1.0.0) ---
+// --- MÓDULO 1: GESTIÓN DE BARAJAS (Super Nexus v1.1.0) ---
 // ==========================================
 
 let decksCache = [];
@@ -17,13 +17,13 @@ function renderizarBotonesDecks(container) {
   idsSeleccionados.clear();
 
   container.innerHTML = `
-    <button id="nt-btn-copy" class="nt-btn">📋 Copiar Nombres</button>
-    <button id="nt-btn-check" class="nt-btn nt-btn-check">🔍 Comprobar Decks</button>
-    <button id="nt-btn-del" class="nt-btn nt-btn-danger">🗑️ Borrar Decks</button>
-    <button id="nt-btn-exp" class="nt-btn" title="Exportar colección completa en .json">📦 Exportar JSON</button>
-    <button id="nt-btn-exp-zip" class="nt-btn" title="Descargar todos los mazos en un .zip de archivos .ydk">🗜️ Exportar .YDK (.zip)</button>
-    <button id="nt-btn-imp" class="nt-btn" title="Importar un .json o múltiples archivos .ydk a la vez">📥 Importar (.json / .ydk)</button>
-    <button id="nt-btn-ydke" class="nt-btn" title="Exportar e importar mazos en formato ydke:// y Omega Code">🔗 YDKE & Omega</button>
+    <button id="nt-btn-copy" class="nt-btn">${ntT('btnCopy')}</button>
+    <button id="nt-btn-check" class="nt-btn nt-btn-check">${ntT('btnCheck')}</button>
+    <button id="nt-btn-del" class="nt-btn nt-btn-danger">${ntT('btnDelete')}</button>
+    <button id="nt-btn-exp" class="nt-btn" title="${ntT('btnExportJsonTitle')}">${ntT('btnExportJson')}</button>
+    <button id="nt-btn-exp-zip" class="nt-btn" title="${ntT('btnExportZipTitle')}">${ntT('btnExportZip')}</button>
+    <button id="nt-btn-imp" class="nt-btn" title="${ntT('btnImportTitle')}">${ntT('btnImport')}</button>
+    <button id="nt-btn-ydke" class="nt-btn" title="${ntT('btnYdkeTitle')}">${ntT('btnYdke')}</button>
   `;
   document.getElementById('nt-btn-copy').onclick = copiarParaRuleta;
   document.getElementById('nt-btn-check').onclick = comprobarDecks;
@@ -37,6 +37,18 @@ function renderizarBotonesDecks(container) {
   cargarYActualizarDecksDOM();
   iniciarObservadorDecks();
   iniciarDetectorModales();
+}
+
+// Se llama al cambiar de idioma desde el panel
+function refrescarIdiomaDecks(container) {
+  if (modoSeleccionActivo) {
+    salirModoSeleccion();
+  } else {
+    renderizarBotonesDecks(container);
+  }
+  document.querySelectorAll('.nt-ydk-btn').forEach((btn) => {
+    btn.title = ntT('ydkBtnTitle');
+  });
 }
 
 function desactivarModuloDecks() {
@@ -315,7 +327,7 @@ function aplicarElementosEnTarjetas() {
         btnYDK.type = 'button';
         btnYDK.className = 'nt-ydk-btn';
         btnYDK.innerHTML = '📥 .ydk';
-        btnYDK.title = 'Descargar en formato .ydk para EDOPro / Omega';
+        btnYDK.title = ntT('ydkBtnTitle');
         btnYDK.dataset.deckKey = textoNodo;
         tarjeta.appendChild(btnYDK);
       }
@@ -350,7 +362,7 @@ function generarTextoYDK(d) {
   const extra = parseList(d.extra_deck).join('\n');
   const side = parseList(d.side_deck).join('\n');
 
-return `#created by Super Nexus for EDOPro & Omega\n#main\n${main}\n#extra\n${extra}\n!side\n${side}\n`;
+  return `#created by Super Nexus for EDOPro & Omega\n#main\n${main}\n#extra\n${extra}\n!side\n${side}\n`;
 }
 
 function parsearContenidoYDK(texto, nombreArchivo) {
@@ -380,7 +392,7 @@ function parsearContenidoYDK(texto, nombreArchivo) {
     }
   }
 
-  const nombre = nombreArchivo.replace(/\.ydk$/i, '').trim() || 'Deck Importado';
+  const nombre = nombreArchivo.replace(/\.ydk$/i, '').trim() || ntT('defaultImportedDeck');
   return { name: nombre, main, extra, side };
 }
 
@@ -666,10 +678,10 @@ async function abrirModalYDKE() {
       listaDecks = data.decks;
     }
   } catch (e) {
-    return alert("Error al cargar tus decks.");
+    return alert(ntT('errLoadDecks'));
   }
 
-  mostrarProgreso("🔗 Preparando Códigos", 1, listaDecks.length, "Generando Omega Codes nativos...");
+  mostrarProgreso(ntT('progPrepTitle'), 1, listaDecks.length, ntT('progPrepDetail'));
 
   const decksProcesados = [];
   for (let i = 0; i < listaDecks.length; i++) {
@@ -689,37 +701,38 @@ async function abrirModalYDKE() {
   overlay.innerHTML = `
     <div class="nt-ydke-modal">
       <div class="nt-ydke-header">
-        <h3>🔗 Conversor YDKE:// & Omega Code (<span id="nt-ydke-count">${decksProcesados.length}</span>)</h3>
+        <h3>${ntT('ydkeModalTitle')} (<span id="nt-ydke-count">${decksProcesados.length}</span>)</h3>
         <button id="nt-ydke-close" class="nt-ydke-close" type="button">✖</button>
       </div>
 
       <div class="nt-ydke-section">
         <div class="nt-ydke-section-top">
-          <span>📤 Exportar tus mazos</span>
-          <input id="nt-ydke-filter" class="nt-ydke-input" type="text" placeholder="🔎 Filtrar por nombre...">
+          <span>${ntT('ydkeExportLabel')}</span>
+          <input id="nt-ydke-filter" class="nt-ydke-input" type="text" placeholder="${ntT('ydkeFilterPlaceholder')}">
         </div>
         <textarea id="nt-ydke-export-box" class="nt-ydke-textarea" readonly></textarea>
         <div class="nt-ydke-actions">
-          <button id="nt-ydke-copy-ydke" class="nt-btn" type="button">🔗 Copiar sólo ydke://</button>
-          <button id="nt-btn-copy-omega" class="nt-btn" type="button">✨ Copiar sólo Omega Code</button>
-          <button id="nt-ydke-copy-named" class="nt-btn" type="button">📋 Copiar con Nombre</button>
-          <button id="nt-ydke-download-txt" class="nt-btn" type="button">💾 Descargar .txt</button>
+          <button id="nt-ydke-copy-ydke" class="nt-btn" type="button">${ntT('ydkeCopyYdke')}</button>
+          <button id="nt-btn-copy-omega" class="nt-btn" type="button">${ntT('ydkeCopyOmega')}</button>
+          <button id="nt-ydke-copy-named" class="nt-btn" type="button">${ntT('ydkeCopyNamed')}</button>
+          <button id="nt-ydke-download-txt" class="nt-btn" type="button">${ntT('ydkeDownloadTxt')}</button>
         </div>
       </div>
 
       <hr class="nt-ydke-divider">
 
       <div class="nt-ydke-section">
-        <span>📥 Importar enlaces <b>ydke://</b> a tu cuenta</span>
-        <textarea id="nt-ydke-import-box" class="nt-ydke-textarea" placeholder="Pega aquí uno o varios enlaces (uno por línea):&#10;ydke://...&#10;Mi Deck: ydke://..."></textarea>
+        <span>${ntT('ydkeImportLabel')}</span>
+        <textarea id="nt-ydke-import-box" class="nt-ydke-textarea"></textarea>
         <div class="nt-ydke-actions">
-          <button id="nt-ydke-import-btn" class="nt-btn nt-btn-active" type="button">📥 Importar enlaces pegados</button>
+          <button id="nt-ydke-import-btn" class="nt-btn nt-btn-active" type="button">${ntT('ydkeImportBtn')}</button>
         </div>
       </div>
     </div>
   `;
 
   document.body.appendChild(overlay);
+  document.getElementById('nt-ydke-import-box').placeholder = ntT('ydkeImportPlaceholder');
 
   const filterInput = document.getElementById('nt-ydke-filter');
   const exportBox = document.getElementById('nt-ydke-export-box');
@@ -744,25 +757,25 @@ async function abrirModalYDKE() {
   overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
   document.getElementById('nt-ydke-copy-ydke').onclick = async () => {
-    if (filtradosActuales.length === 0) return alert("No hay mazos en la lista.");
+    if (filtradosActuales.length === 0) return alert(ntT('noDecksInList'));
     const ok = await copiarTextoPortapapeles(filtradosActuales.map(d => d.ydke).join('\n'));
-    if (ok) alert(`¡${filtradosActuales.length} enlace(s) ydke:// copiados!`);
+    if (ok) alert(ntT('copiedYdke', { n: filtradosActuales.length }));
   };
 
   document.getElementById('nt-btn-copy-omega').onclick = async () => {
-    if (filtradosActuales.length === 0) return alert("No hay mazos en la lista.");
+    if (filtradosActuales.length === 0) return alert(ntT('noDecksInList'));
     const ok = await copiarTextoPortapapeles(filtradosActuales.map(d => d.omega).join('\n'));
-    if (ok) alert(`¡${filtradosActuales.length} Omega Code(s) copiados al portapapeles!`);
+    if (ok) alert(ntT('copiedOmega', { n: filtradosActuales.length }));
   };
 
   document.getElementById('nt-ydke-copy-named').onclick = async () => {
-    if (filtradosActuales.length === 0) return alert("No hay mazos en la lista.");
+    if (filtradosActuales.length === 0) return alert(ntT('noDecksInList'));
     const ok = await copiarTextoPortapapeles(filtradosActuales.map(d => `${d.name}:\nYDKE: ${d.ydke}\nOMEGA: ${d.omega}`).join('\n\n'));
-    if (ok) alert(`¡${filtradosActuales.length} mazos copiados con sus códigos!`);
+    if (ok) alert(ntT('copiedNamed', { n: filtradosActuales.length }));
   };
 
   document.getElementById('nt-ydke-download-txt').onclick = () => {
-    if (filtradosActuales.length === 0) return alert("No hay mazos para descargar.");
+    if (filtradosActuales.length === 0) return alert(ntT('noDecksToDownload'));
     const contenido = filtradosActuales.map(d => `${d.name}\nYDKE: ${d.ydke}\nOMEGA: ${d.omega}\n`).join('\n');
     const blob = new Blob([contenido], { type: 'text/plain' });
     const a = document.createElement('a');
@@ -797,14 +810,14 @@ async function abrirModalYDKE() {
     }
 
     const total = decksParaSubir.length;
-    if (total === 0) return alert("⚠️ No se detectó ningún enlace ydke:// válido.");
-    if (!confirm(`¿Importar ${total} deck(s) a tu cuenta?`)) return;
+    if (total === 0) return alert(ntT('noValidYdke'));
+    if (!confirm(ntT('confirmImportAccount', { n: total }))) return;
 
     overlay.remove();
 
     for (let i = 0; i < total; i++) {
       const d = decksParaSubir[i];
-      mostrarProgreso("📥 Importando Decks", i + 1, total, `Subiendo: "${d.name}"`);
+      mostrarProgreso(ntT('progImportTitle'), i + 1, total, ntT('progUploading', { name: d.name }));
 
       const fd = new FormData();
       fd.append('name', d.name);
@@ -817,7 +830,7 @@ async function abrirModalYDKE() {
       await new Promise(r => setTimeout(r, 250));
     }
 
-    mostrarProgreso("✅ ¡Importación Completa!", total, total, "Recargando tus decks...");
+    mostrarProgreso(ntT('progImportDone'), total, total, ntT('progReloading'));
     setTimeout(() => location.reload(), 600);
   };
 }
@@ -846,18 +859,18 @@ async function copiarParaRuleta() {
   }
 
   const listaUnica = [...new Set(misDecks)];
-  if (listaUnica.length === 0) return alert('⚠️ No se encontraron decks para copiar.');
+  if (listaUnica.length === 0) return alert(ntT('noDecksToCopy'));
 
   const copiado = await copiarTextoPortapapeles(listaUnica.join('\n'));
-  if (copiado) alert(`¡${listaUnica.length} nombres copiados al portapapeles!`);
-  else alert('❌ El navegador bloqueó el acceso al portapapeles.');
+  if (copiado) alert(ntT('copiedNames', { n: listaUnica.length }));
+  else alert(ntT('clipboardBlocked'));
 }
 
 async function descargarBackup() {
   try {
     const res = await fetch('/api/list-decks.php');
     const data = await res.json();
-    if (!data.success || !Array.isArray(data.decks)) return alert("Error al leer los decks.");
+    if (!data.success || !Array.isArray(data.decks)) return alert(ntT('errReadDecks'));
     const blob = new Blob([JSON.stringify(data.decks, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -865,18 +878,18 @@ async function descargarBackup() {
     a.click();
     URL.revokeObjectURL(a.href);
   } catch (e) {
-    alert("Error al exportar JSON.");
+    alert(ntT('errExportJson'));
   }
 }
 
 async function exportarTodosYDKZip() {
   try {
-    mostrarProgreso("🗜️ Generando ZIP", 1, 2, "Obteniendo todos tus mazos...");
+    mostrarProgreso(ntT('progZipTitle'), 1, 2, ntT('progZipFetching'));
     const res = await fetch('/api/list-decks.php');
     const data = await res.json();
     if (!data.success || !Array.isArray(data.decks) || data.decks.length === 0) {
       ocultarProgreso();
-      return alert("No se encontraron decks para exportar.");
+      return alert(ntT('noDecksToExport'));
     }
 
     const nombresUsados = new Map();
@@ -890,7 +903,7 @@ async function exportarTodosYDKZip() {
       return { nombre: nombreFinal, contenido: generarTextoYDK(d) };
     });
 
-    mostrarProgreso("🗜️ Generando ZIP", 2, 2, `Empaquetando ${archivosZip.length} archivos .ydk...`);
+    mostrarProgreso(ntT('progZipTitle'), 2, 2, ntT('progZipPacking', { n: archivosZip.length }));
     const zipBlob = crearZip(archivosZip);
 
     const a = document.createElement('a');
@@ -900,10 +913,10 @@ async function exportarTodosYDKZip() {
     URL.revokeObjectURL(a.href);
 
     ocultarProgreso();
-    alert(`✅ ¡Se descargó el .zip con ${archivosZip.length} archivos .ydk!`);
+    alert(ntT('zipDone', { n: archivosZip.length }));
   } catch (e) {
     ocultarProgreso();
-    alert("Error al generar el ZIP de .ydk.");
+    alert(ntT('errZip'));
   }
 }
 
@@ -942,12 +955,12 @@ function importarDecksMultiples() {
       }
 
       const total = decksParaSubir.length;
-      if (total === 0) return alert("No se encontraron decks válidos.");
-      if (!confirm(`¿Importar ${total} deck(s) a esta cuenta?`)) return;
+      if (total === 0) return alert(ntT('noValidDecks'));
+      if (!confirm(ntT('confirmImportThisAccount', { n: total }))) return;
 
       for (let i = 0; i < total; i++) {
         const d = decksParaSubir[i];
-        mostrarProgreso("📥 Importando Decks", i + 1, total, `Subiendo: "${d.name}"`);
+        mostrarProgreso(ntT('progImportTitle'), i + 1, total, ntT('progUploading', { name: d.name }));
 
         const fd = new FormData();
         fd.append('name', d.name);
@@ -960,11 +973,11 @@ function importarDecksMultiples() {
         await new Promise(r => setTimeout(r, 250));
       }
 
-      mostrarProgreso("✅ ¡Importación Completa!", total, total, "Recargando tus decks...");
+      mostrarProgreso(ntT('progImportDone'), total, total, ntT('progReloading'));
       setTimeout(() => location.reload(), 600);
     } catch (err) {
       ocultarProgreso();
-      alert("Error al leer los archivos seleccionados.");
+      alert(ntT('errReadFiles'));
     }
   };
   input.click();
@@ -977,7 +990,7 @@ async function comprobarDecks() {
   try {
     const res = await fetch('/api/list-decks.php');
     const data = await res.json();
-    if (!data.success || !data.decks) return alert("Error al conectar.");
+    if (!data.success || !data.decks) return alert(ntT('errConnect'));
 
     const totalDecks = data.decks.length;
     let validos = 0;
@@ -999,11 +1012,11 @@ async function comprobarDecks() {
       } else {
         const motivos = [];
         let etiqueta = "";
-        if (main === 0) { motivos.push(`Main Deck vacío`); etiqueta = `⚠️ Vacío`; }
-        else if (main < 40) { motivos.push(`Main incompleto: ${main}/40`); etiqueta = `⚠️ Incompleto`; }
-        else if (main > 60) { motivos.push(`Exceso Main: ${main}/60`); etiqueta = `❌ Exceso`; }
-        if (extra > 15) motivos.push(`Exceso Extra`);
-        if (side > 15) motivos.push(`Exceso Side`);
+        if (main === 0) { motivos.push(ntT('reasonMainEmpty')); etiqueta = ntT('badgeEmpty'); }
+        else if (main < 40) { motivos.push(ntT('reasonMainIncomplete', { n: main })); etiqueta = ntT('badgeIncomplete'); }
+        else if (main > 60) { motivos.push(ntT('reasonMainExcess', { n: main })); etiqueta = ntT('badgeExcess'); }
+        if (extra > 15) motivos.push(ntT('reasonExtraExcess'));
+        if (side > 15) motivos.push(ntT('reasonSideExcess'));
         listaReporte.push(`• "${nombreLimpio}": ${motivos.join(' | ')}`);
         mapaFallos.set(nombreLimpio.toLowerCase(), etiqueta);
       }
@@ -1031,18 +1044,26 @@ async function comprobarDecks() {
     }
 
     setTimeout(() => {
-      if (listaReporte.length === 0) alert("🎉 ¡TODOS LOS DECKS CUMPLEN LAS REGLAS!");
-      else alert(`📋 COMPROBACIÓN DE DECKS (${totalDecks}):\n\n✅ Listos: ${validos}\n⚠️ Con fallas (${listaReporte.length}):\n\n${listaReporte.join('\n')}`);
+      if (listaReporte.length === 0) {
+        alert(ntT('allDecksOk'));
+      } else {
+        alert(ntT('checkReport', {
+          total: totalDecks,
+          ok: validos,
+          bad: listaReporte.length,
+          list: listaReporte.join('\n')
+        }));
+      }
     }, 60);
 
   } catch (err) {
-    alert("Error al comprobar.");
+    alert(ntT('errConnect'));
   }
 }
 
 function actualizarContadorBorrado() {
   const btn = document.getElementById('nt-btn-delete-confirm');
-  if (btn) btn.innerHTML = `🗑️ Eliminar (${idsSeleccionados.size})`;
+  if (btn) btn.innerHTML = ntT('btnDeleteConfirm', { n: idsSeleccionados.size });
 }
 
 function salirModoSeleccion() {
@@ -1064,9 +1085,9 @@ async function activarModoSeleccion() {
   await cargarYActualizarDecksDOM();
 
   content.innerHTML = `
-    <button id="nt-btn-select-all" class="nt-btn">☑️ Todos</button>
-    <button id="nt-btn-delete-confirm" class="nt-btn nt-btn-danger">🗑️ Eliminar (0)</button>
-    <button id="nt-btn-cancel-delete" class="nt-btn">✖ Cancelar</button>
+    <button id="nt-btn-select-all" class="nt-btn">${ntT('btnSelectAll')}</button>
+    <button id="nt-btn-delete-confirm" class="nt-btn nt-btn-danger">${ntT('btnDeleteConfirm', { n: 0 })}</button>
+    <button id="nt-btn-cancel-delete" class="nt-btn">${ntT('btnCancel')}</button>
   `;
 
   document.getElementById('nt-btn-select-all').onclick = () => {
@@ -1092,14 +1113,14 @@ async function activarModoSeleccion() {
 
   document.getElementById('nt-btn-delete-confirm').onclick = async () => {
     const total = idsSeleccionados.size;
-    if (total === 0) return alert("No has seleccionado decks.");
-    if (!confirm(`¿ELIMINAR ${total} decks permanentemente?`)) return;
+    if (total === 0) return alert(ntT('noneSelected'));
+    if (!confirm(ntT('confirmDelete', { n: total }))) return;
 
     let borrados = 0;
     for (const id of idsSeleccionados) {
       if (!id) continue;
       borrados++;
-      mostrarProgreso("🗑️ Borrando Decks", borrados, total, `Eliminando mazo ${borrados} de ${total}...`);
+      mostrarProgreso(ntT('progDeleteTitle'), borrados, total, ntT('progDeleteDetail', { i: borrados, n: total }));
 
       const fd = new FormData();
       fd.append('id', id);
@@ -1111,7 +1132,7 @@ async function activarModoSeleccion() {
       await new Promise(r => setTimeout(r, 200));
     }
 
-    mostrarProgreso("✅ ¡Limpieza Completa!", total, total, "Recargando tus decks...");
+    mostrarProgreso(ntT('progCleanDone'), total, total, ntT('progReloading'));
     setTimeout(() => location.reload(), 600);
   };
 
