@@ -17,7 +17,7 @@ Browser extension (**Manifest V3**, zero dependencies) for bulk deck management 
 
 <table>
   <tr>
-    <td><img src="assets/en/ydke-modal.png" alt="YDKE and Omega Code converter"></td>
+    <td><img src="assets/en/ydk-modal.png" alt="YDKE and Omega Code converter"></td>
     <td><img src="assets/en/borrado-multiple.png" alt="Multi-delete with selection"></td>
   </tr>
   <tr>
