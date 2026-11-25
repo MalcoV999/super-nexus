@@ -13,19 +13,19 @@ Extensión de navegador (**Manifest V3**, cero dependencias) para gestionar mazo
 
 ## Demo
 
-![Panel flotante de Super Nexus en Dueling Nexus](assets/panel.png)
+![Panel flotante de Super Nexus en Dueling Nexus](assets/es/panel.png)
 
 <table>
   <tr>
-    <td><img src="assets/ydke-modal.png" alt="Conversor YDKE y Omega Code"></td>
-    <td><img src="assets/borrado-multiple.png" alt="Borrado múltiple con selección"></td>
+    <td><img src="assets/es/ydk-modal.png" alt="Conversor YDKE y Omega Code"></td>
+    <td><img src="assets/es/borrado-multiple.png" alt="Borrado múltiple con selección"></td>
   </tr>
   <tr>
     <td align="center"><sub>Conversor YDKE:// y Omega Code</sub></td>
     <td align="center"><sub>Borrado múltiple con selección</sub></td>
   </tr>
   <tr>
-    <td colspan="2"><img src="assets/comprobador.png" alt="Comprobación de mazos incompletos y vacíos"></td>
+    <td colspan="2"><img src="assets/es/comprobador.png" alt="Comprobación de mazos incompletos y vacíos"></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><sub>Comprobador de mazos: detecta incompletos y vacíos</sub></td>
@@ -105,10 +105,8 @@ super-nexus/
 │   ├── i18n.js               # Traducciones ES / EN
 │   └── decks.js              # Módulo de gestión de mazos
 ├── assets/
-│   ├── panel.png             # Captura del panel flotante
-│   ├── ydke-modal.png        # Modal de YDKE y Omega Code
-│   ├── borrado-multiple.png  # Modo de selección para borrado
-│   └── comprobador.png       # Comprobación de mazos incompletos
+│   ├── en/                   # Screenshots (English UI)
+│   └── es/                   # Capturas (interfaz en español)
 ├── LICENSE
 ├── README.md
 └── README.es.md
