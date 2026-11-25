@@ -13,19 +13,19 @@ Browser extension (**Manifest V3**, zero dependencies) for bulk deck management 
 
 ## Demo
 
-![Super Nexus floating panel on Dueling Nexus](assets/panel.png)
+![Super Nexus floating panel on Dueling Nexus](assets/en/panel.png)
 
 <table>
   <tr>
-    <td><img src="assets/ydke-modal.png" alt="YDKE and Omega Code converter"></td>
-    <td><img src="assets/borrado-multiple.png" alt="Multi-delete with selection"></td>
+    <td><img src="assets/en/ydke-modal.png" alt="YDKE and Omega Code converter"></td>
+    <td><img src="assets/en/borrado-multiple.png" alt="Multi-delete with selection"></td>
   </tr>
   <tr>
     <td align="center"><sub>YDKE:// and Omega Code converter</sub></td>
     <td align="center"><sub>Multi-delete with selection</sub></td>
   </tr>
   <tr>
-    <td colspan="2"><img src="assets/comprobador.png" alt="Check for incomplete and empty decks"></td>
+    <td colspan="2"><img src="assets/en/comprobador.png" alt="Check for incomplete and empty decks"></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><sub>Deck checker: finds incomplete and empty decks</sub></td>
@@ -105,10 +105,8 @@ super-nexus/
 │   ├── i18n.js               # ES / EN translations
 │   └── decks.js              # Deck management module
 ├── assets/
-│   ├── panel.png             # Floating panel screenshot
-│   ├── ydke-modal.png        # YDKE and Omega Code modal
-│   ├── borrado-multiple.png  # Multi-delete selection mode
-│   └── comprobador.png       # Incomplete deck check
+│   ├── en/                   # Screenshots (English UI)
+│   └── es/                   # Capturas (interfaz en español)
 ├── LICENSE
 ├── README.md
 └── README.es.md
