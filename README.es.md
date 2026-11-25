@@ -1,3 +1,4 @@
+[English](README.md) | **Español**
 # Super Nexus
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-00d2ff?style=flat-square)
