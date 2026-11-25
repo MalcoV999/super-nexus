@@ -1,12 +1,13 @@
 [English](README.md) | **Español**
+
 # Super Nexus
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-00d2ff?style=flat-square)
 ![Dependencias](https://img.shields.io/badge/Dependencias-0-success?style=flat-square)
-![Versión](https://img.shields.io/badge/Versi%C3%B3n-1.0.0-7952b3?style=flat-square)
+![Versión](https://img.shields.io/badge/Versi%C3%B3n-1.1.0-7952b3?style=flat-square)
 ![Licencia MIT](https://img.shields.io/badge/Licencia-MIT-blue?style=flat-square)
 
-Extensión de navegador (**Manifest V3**, cero dependencias) para gestionar mazos por lotes en **Dueling Nexus** (`/decks`): exportación `.ydk` / `.zip`, conversor `ydke://` y Omega Code, backups en JSON, comprobación de mazos y borrado múltiple. Pensada para conectar Nexus con **EDOPro** y **YGO Omega**.
+Extensión de navegador (**Manifest V3**, cero dependencias) para gestionar mazos por lotes en **Dueling Nexus** (`/decks`): exportación `.ydk` / `.zip`, conversor `ydke://` y Omega Code, backups en JSON, comprobación de mazos y borrado múltiple. Pensada para conectar Nexus con **EDOPro** y **YGO Omega**. La interfaz está disponible en **español e inglés**.
 
 > ⚠️ Proyecto no oficial. No está afiliado ni respaldado por Dueling Nexus, Konami, EDOPro ni YGO Omega. Todas las marcas pertenecen a sus respectivos dueños.
 
@@ -31,10 +32,6 @@ Extensión de navegador (**Manifest V3**, cero dependencias) para gestionar mazo
   </tr>
 </table>
 
-## Qué resuelve
-
-Gestionar decenas o cientos de mazos en Dueling Nexus de forma manual era lento y tedioso: borrar mazos uno por uno, verificar cuáles estaban incompletos antes de jugar o exportar toda la colección para usarla en **EDOPro** o **YGO Omega** requería hacerlo mazo por mazo. **Super Nexus** centraliza todas esas operaciones en una barra flotante integrada en `/decks`.
-
 ## Por qué existe
 
 Jugaba con mis hermanos en tres cuentas de Dueling Nexus y necesitaba los mismos mazos en todas, pero pasarlos uno por uno por enlace me quitaba tiempo de juego. Cuando Nexus tuvo un reinicio y varios mazos se borraron, entendí que necesitaba un respaldo real, y bajar cientos de `.ydk` con mi velocidad de descarga no era práctico. Llevar los mazos a EDOPro u Omega también era manual, y varios amigos migraban allá cuando perdían los suyos.
@@ -52,19 +49,20 @@ Cada botón nació de algo que necesité:
 ## Features
 
 - **Panel flotante:** aparece solo en `/decks`. Se arrastra, se minimiza y recuerda dónde lo dejaste.
-- **Copiar nombres:** pone en el portapapeles la lista de nombres de tus mazos.
-- **Comprobador de mazos:** revisa toda tu colección con las reglas de construcción (Main entre 40 y 60 cartas, Extra y Side máximo 15) y te dice cuántos están listos y cuáles tienen fallas, con el motivo (por ejemplo, Main incompleto: 1/40 o Main Deck vacío). Los mazos con problemas se marcan en rojo como **Incompleto** o **Vacío**.
+- **Interfaz en español e inglés:** un botón **ES / EN** en el panel cambia el idioma al instante. Arranca con el idioma de tu navegador y recuerda tu elección.
+- **Copiar nombres:** pone en el portapapeles la lista de nombres de tus mazos, sin duplicados.
+- **Comprobador de mazos:** revisa toda tu colección con las reglas de construcción (Main entre 40 y 60 cartas, Extra y Side máximo 15) y te dice cuántos están listos y cuáles tienen fallas, con el motivo (por ejemplo, *Main incompleto: 1/40* o *Main Deck vacío*). Los mazos con problemas se marcan en rojo como **Incompleto** o **Vacío**.
 - **Borrado múltiple:** seleccionas mazos uno por uno o todos, y se eliminan en lote con barra de progreso.
-- **Backup e importación:** respaldo completo en `.json`. Puedes importar varios `.ydk` o `.json` a la vez (con Ctrl + clic), con una ventana de progreso que muestra el contador y el porcentaje.
+- **Backup e importación:** respaldo completo en `.json`. Puedes importar un `.json` o varios `.ydk` a la vez (con Ctrl + clic), con una ventana de progreso que muestra el contador y el porcentaje.
 - **Exportar un mazo a `.ydk`:** cada tarjeta recibe su propio botón, tanto en vista de cuadrícula como en lista y cubo.
-- **Exportar todo a `.zip`:** un solo archivo con todos tus mazos en `.ydk. Si lo descomprimes dentro de la carpeta deck de EDOPro, los tienes todos ahí al instante.
+- **Exportar todo a `.zip`:** un solo archivo con todos tus mazos en `.ydk`. Si lo descomprimes dentro de la carpeta `deck` de EDOPro, los tienes todos ahí al instante.
 - **Conversor `ydke://` y Omega Code:** un modal con buscador para copiar los enlaces de tus mazos, generar el Omega Code y pegar varios `ydke://` (uno por línea) para importarlos a tu cuenta.
 
 ## Privacidad y permisos
 
 El `manifest.json` no declara `permissions` ni `host_permissions`. Solo inyecta un content script en `*.duelingnexus.com`.
 
-La extensión no tiene servidor propio, analíticas ni telemetría, y no envía datos a terceros. Lo único con lo que se comunica es Dueling Nexus, usando tu propia sesión abierta. No descarga ni ejecuta código externo.
+La extensión no tiene servidor propio, analíticas ni telemetría, y no envía datos a terceros. Lo único con lo que se comunica es Dueling Nexus, usando tu propia sesión abierta. No descarga ni ejecuta código externo. Lo único que guarda es local en tu navegador: la posición del panel y tu elección de idioma.
 
 ## Antes de usarla
 
@@ -101,9 +99,10 @@ En la importación hay una pausa entre cada mazo: al mandar las peticiones demas
 ```
 super-nexus/
 ├── manifest.json             # Configuración MV3
-├── content.js                # Lógica principal y UI
+├── content.js                # Lógica principal, panel y selector de idioma
 ├── styles.css                # Estilos del panel y modales
 ├── modules/
+│   ├── i18n.js               # Traducciones ES / EN
 │   └── decks.js              # Módulo de gestión de mazos
 ├── assets/
 │   ├── panel.png             # Captura del panel flotante
@@ -111,7 +110,8 @@ super-nexus/
 │   ├── borrado-multiple.png  # Modo de selección para borrado
 │   └── comprobador.png       # Comprobación de mazos incompletos
 ├── LICENSE
-└── README.md
+├── README.md
+└── README.es.md
 ```
 
 ## Qué aprendí
@@ -119,6 +119,7 @@ super-nexus/
 - **Cómo funciona una SPA por dentro:** usé la pestaña de red de DevTools para entender cómo Nexus hace sus peticiones y poder replicarlas desde la extensión sin romper la página. También tuve que lidiar con tarjetas que se pintan dinámicamente: usé `MutationObserver` con *debounce* para detectarlas y capturé los clics para que mi botón no abriera el editor del mazo.
 - **Que ir rápido también falla:** al importar el JSON, mandar las peticiones muy seguidas bloqueaba la página o daba error, probablemente porque parecía tráfico sospechoso. Agregué una pausa entre cada mazo y una ventana de progreso con contador y porcentaje, porque con muchos mazos no saber cuánto faltaba me frustraba.
 - **Ingeniería inversa de formatos:** estudié los formatos de EDOPro y Omega (`.ydk`, `ydke://`, Omega Code) y los adapté para convertir mazos de ida y vuelta con Nexus. Armé el ZIP a mano, sin librerías, para evitar dependencias de terceros y aprender cómo funciona el formato por dentro.
+- **Agregar un segundo idioma después:** la primera versión tenía todos los textos escritos directamente en español. Los moví a un solo módulo (`i18n.js`) y los reemplacé por una consulta `ntT('clave')`, con marcadores `{variable}` para números y nombres. Agregar otro idioma ahora es agregar un diccionario.
 
 ## Stack
 
@@ -130,14 +131,11 @@ Funciona en **Chrome**, **Brave**, **Edge** y **Opera**. Es una extensión y no 
 
 ### Opción 1: Descargar Release (.zip)
 
-1. Descarga el último `super-nexus-v1.0.0.zip` desde [Releases](https://github.com/MalcoV999/super-nexus/releases).
+1. Descarga el último `super-nexus-v1.1.0.zip` desde [Releases](https://github.com/MalcoV999/super-nexus/releases).
 2. Extrae el `.zip` en una carpeta de tu PC.
 3. Abre `chrome://extensions/` (o `brave://extensions/`, `edge://extensions/`).
 4. Activa el **Modo de desarrollador** (esquina superior derecha).
-5. Selecciona la carpeta que contiene los archivos de la extensión
-   (manifest.json, content.js, styles.css y modules).
-   Si al extraer Windows creó una carpeta dentro de otra, elige la
-   de más adentro, la que muestra esos archivos.
+5. Pulsa **Cargar descomprimida** y selecciona la carpeta que contiene los archivos de la extensión (`manifest.json`, `content.js`, `styles.css` y `modules`). Si al extraer Windows creó una carpeta dentro de otra, elige la de más adentro, la que muestra esos archivos.
 6. Entra a la sección `/decks` en Dueling Nexus.
 
 ### Opción 2: Clonar el repositorio
