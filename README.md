@@ -52,11 +52,11 @@ Cada botón nació de algo que necesité:
 
 - **Panel flotante:** aparece solo en `/decks`. Se arrastra, se minimiza y recuerda dónde lo dejaste.
 - **Copiar nombres:** pone en el portapapeles la lista de nombres de tus mazos.
-- **Comprobador de mazos:** revisa toda tu colección y te dice cuántos están listos y cuáles tienen fallas, indicando el motivo (por ejemplo, *Main incompleto: 1/40* o *Main Deck vacío*). Los mazos con problemas se marcan en rojo como **Incompleto** o **Vacío**.
+- **Comprobador de mazos:** revisa toda tu colección con las reglas de construcción (Main entre 40 y 60 cartas, Extra y Side máximo 15) y te dice cuántos están listos y cuáles tienen fallas, con el motivo (por ejemplo, Main incompleto: 1/40 o Main Deck vacío). Los mazos con problemas se marcan en rojo como **Incompleto** o **Vacío**.
 - **Borrado múltiple:** seleccionas mazos uno por uno o todos, y se eliminan en lote con barra de progreso.
-- **Backup e importación:** respaldo completo en `.json`. Puedes importar varios `.ydk` o `.json` a la vez, con una ventana de progreso que muestra el contador y el porcentaje.
+- **Backup e importación:** respaldo completo en `.json`. Puedes importar varios `.ydk` o `.json` a la vez (con Ctrl + clic), con una ventana de progreso que muestra el contador y el porcentaje.
 - **Exportar un mazo a `.ydk`:** cada tarjeta recibe su propio botón, tanto en vista de cuadrícula como en lista y cubo.
-- **Exportar todo a `.zip`:** un solo archivo con todos tus mazos en `.ydk`, listos para EDOPro.
+- **Exportar todo a `.zip`:** un solo archivo con todos tus mazos en `.ydk. Si lo descomprimes dentro de la carpeta deck de EDOPro, los tienes todos ahí al instante.
 - **Conversor `ydke://` y Omega Code:** un modal con buscador para copiar los enlaces de tus mazos, generar el Omega Code y pegar varios `ydke://` (uno por línea) para importarlos a tu cuenta.
 
 ## Privacidad y permisos
@@ -133,7 +133,10 @@ Funciona en **Chrome**, **Brave**, **Edge** y **Opera**. Es una extensión y no 
 2. Extrae el `.zip` en una carpeta de tu PC.
 3. Abre `chrome://extensions/` (o `brave://extensions/`, `edge://extensions/`).
 4. Activa el **Modo de desarrollador** (esquina superior derecha).
-5. Haz clic en **Cargar descomprimida** y selecciona la carpeta extraída.
+5. Selecciona la carpeta que contiene los archivos de la extensión
+   (manifest.json, content.js, styles.css y modules).
+   Si al extraer Windows creó una carpeta dentro de otra, elige la
+   de más adentro, la que muestra esos archivos.
 6. Entra a la sección `/decks` en Dueling Nexus.
 
 ### Opción 2: Clonar el repositorio
