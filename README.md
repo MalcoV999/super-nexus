@@ -4,7 +4,7 @@
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-00d2ff?style=flat-square)
 ![Dependencies](https://img.shields.io/badge/Dependencies-0-success?style=flat-square)
-![Version](https://img.shields.io/badge/Version-1.1.0-7952b3?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.1.1-7952b3?style=flat-square)
 ![License MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
 
 Browser extension (**Manifest V3**, zero dependencies) for bulk deck management on **Dueling Nexus** (`/decks`): `.ydk` / `.zip` export, `ydke://` and Omega Code converter, JSON backups, deck checking and multi-delete. Built to bridge Nexus with **EDOPro** and **YGO Omega**. The interface is available in **English and Spanish**.
@@ -129,7 +129,7 @@ Works on **Chrome**, **Brave**, **Edge** and **Opera**. It's an extension, not a
 
 ### Option 1: Download the Release (.zip)
 
-1. Download the latest `super-nexus-v1.1.0.zip` from [Releases](https://github.com/MalcoV999/super-nexus/releases).
+1. Download the latest `super-nexus-v1.1.1.zip` from [Releases](https://github.com/MalcoV999/super-nexus/releases).
 2. Extract the `.zip` into a folder on your PC.
 3. Open `chrome://extensions/` (or `brave://extensions/`, `edge://extensions/`).
 4. Turn on **Developer mode** (top-right corner).
@@ -146,7 +146,7 @@ Then follow steps 3 to 6 above, selecting the `super-nexus` folder.
 
 ## Roadmap
 
-- [ ] Refresh the deck list dynamically after importing or deleting (without reloading the whole page with `location.reload()`)
+- [ ] Refresh the deck list dynamically after importing (deletion already updates without `location.reload()`)
 - [ ] Bulk import of Omega Codes (complementing the platform's single import)
 - [ ] Firefox (desktop and Android) and Safari support
 - [ ] Publish on the Chrome Web Store / Edge Add-ons
