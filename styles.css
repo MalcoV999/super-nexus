@@ -1,0 +1,392 @@
+/* Panel flotante Super Nexus v1.0.0 */
+#super-nexus-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  max-width: calc(100vw - 40px);
+  background: rgba(16, 16, 28, 0.96);
+  border: 1px solid #00d2ff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 210, 255, 0.3);
+  border-radius: 10px;
+  padding: 6px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  z-index: 9999999;
+  backdrop-filter: blur(10px);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+.nt-content {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.nt-drag-handle {
+  color: #00d2ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: grab;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.nt-drag-handle:active {
+  cursor: grabbing;
+  background: rgba(0, 210, 255, 0.15);
+}
+
+.nt-btn {
+  background: #202038;
+  color: #ffffff;
+  border: 1px solid #3d3d66;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.nt-btn:hover {
+  background: #7952b3;
+  border-color: #a370f7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(121, 82, 179, 0.5);
+}
+
+.nt-btn-active {
+  background: #00d2ff !important;
+  color: #10101c !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.6) !important;
+}
+
+.nt-btn-check:hover { background: #17a2b8; border-color: #3fe0f7; }
+.nt-btn-danger { background: #2e1a22; border-color: #7a2233; }
+.nt-btn-danger:hover { background: #dc3545; border-color: #ff6b6b; }
+
+.nt-toggle {
+  background: none;
+  border: none;
+  color: #8b8ba7;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+#super-nexus-panel.minimized .nt-content { display: none !important; }
+#super-nexus-panel.minimized { padding: 6px 8px; background: rgba(16, 16, 28, 0.7); }
+
+/* --- ESTILOS DE DECKS Y SELECCIÓN --- */
+.nt-card-warn {
+  outline: 4px solid #ff2233 !important;
+  outline-offset: -4px !important;
+  box-shadow: 0 0 25px rgba(255, 34, 51, 0.9) !important;
+  position: relative !important;
+}
+
+.nt-badge-warn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  background: #dc3545 !important;
+  color: white !important;
+  padding: 4px 10px !important;
+  border-radius: 5px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  z-index: 99999 !important;
+  pointer-events: none !important;
+}
+
+.nt-checkbox-container {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 999999 !important;
+  background: rgba(16, 16, 28, 0.85);
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #ff3344;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nt-deck-checkbox {
+  width: 18px !important;
+  height: 18px !important;
+  cursor: pointer !important;
+  accent-color: #ff3344 !important;
+}
+
+.nt-selecting-card { cursor: pointer !important; }
+.nt-card-selected {
+  outline: 3px solid #ff9900 !important;
+  outline-offset: -3px !important;
+  filter: brightness(0.9);
+}
+
+/* --- MODAL DE PROGRESO EN PANTALLA --- */
+#nt-progress-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999999;
+}
+
+.nt-progress-box {
+  background: #141424;
+  border: 2px solid #00d2ff;
+  box-shadow: 0 0 30px rgba(0, 210, 255, 0.6);
+  border-radius: 14px;
+  padding: 26px 34px;
+  text-align: center;
+  min-width: 320px;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+.nt-progress-box h3 {
+  margin: 0 0 16px 0;
+  color: #00d2ff;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.nt-prog-track {
+  width: 100%;
+  height: 12px;
+  background: #252540;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid #3d3d66;
+}
+
+#nt-prog-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00d2ff, #7952b3);
+  transition: width 0.15s ease;
+}
+
+#nt-prog-detail {
+  font-size: 13px;
+  color: #ddd;
+  margin: 0 0 6px 0;
+}
+
+#nt-prog-count {
+  font-size: 12px;
+  color: #00d2ff;
+  font-weight: bold;
+}
+
+/* --- BOTÓN DE DESCARGA RÁPIDA .YDK EN CADA DECK --- */
+.nt-ydk-btn {
+  position: absolute !important;
+  bottom: 8px !important;
+  right: 10px !important;
+  background: #181828 !important;
+  color: #00d2ff !important;
+  border: 1px solid #00d2ff !important;
+  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  z-index: 999 !important;
+  pointer-events: auto !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.2s ease !important;
+}
+
+.nt-ydk-btn:hover {
+  background: #00d2ff !important;
+  color: #10101c !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.7) !important;
+}
+
+/* Ocultar botones cuando hay modales */
+body.nt-modal-open .nt-ydk-btn,
+body.nt-modal-open .nt-checkbox-container,
+body.nt-modal-open .nt-badge-warn {
+  display: none !important;
+}
+
+/* --- AJUSTE PARA VISTA LISTA --- */
+.nt-list-row .nt-ydk-btn {
+  bottom: auto !important;
+  top: 50% !important;
+  right: 205px !important;
+  transform: translateY(-50%) !important;
+}
+
+.nt-list-row .nt-checkbox-container {
+  top: 50% !important;
+  right: 270px !important;
+  transform: translateY(-50%) !important;
+}
+
+.nt-list-row .nt-badge-warn {
+  top: 50% !important;
+  right: 325px !important;
+  transform: translateY(-50%) !important;
+}
+
+/* --- AJUSTE PARA VISTA CUBO --- */
+.nt-cube-card .nt-ydk-btn {
+  bottom: auto !important;
+  top: 10px !important;
+  right: 10px !important;
+}
+
+.nt-cube-card .nt-checkbox-container {
+  top: 10px !important;
+  left: 10px !important;
+  right: auto !important;
+}
+
+.nt-cube-card .nt-badge-warn {
+  top: 46px !important;
+  right: 10px !important;
+}
+
+/* --- MODAL YDKE:// --- */
+#nt-ydke-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999998;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.nt-ydke-modal {
+  background: #141424;
+  border: 2px solid #00d2ff;
+  box-shadow: 0 0 32px rgba(0, 210, 255, 0.45);
+  border-radius: 14px;
+  padding: 20px 24px;
+  width: min(680px, 92vw);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nt-ydke-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nt-ydke-header h3 {
+  margin: 0;
+  color: #00d2ff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.nt-ydke-close {
+  background: none;
+  border: none;
+  color: #8b8ba7;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.nt-ydke-close:hover {
+  color: #ffffff;
+}
+
+.nt-ydke-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.nt-ydke-section-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nt-ydke-input {
+  background: #1c1c32;
+  color: #ffffff;
+  border: 1px solid #3d3d66;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  min-width: 240px;
+  outline: none;
+}
+
+.nt-ydke-input:focus,
+.nt-ydke-textarea:focus {
+  border-color: #00d2ff;
+}
+
+.nt-ydke-textarea {
+  width: 100%;
+  height: 125px;
+  box-sizing: border-box;
+  background: #0e0e1a;
+  color: #d9f6ff;
+  border: 1px solid #3d3d66;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: Consolas, monospace;
+  font-size: 11.5px;
+  resize: vertical;
+  outline: none;
+}
+
+.nt-ydke-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nt-ydke-divider {
+  border: none;
+  border-top: 1px solid #2b2b4a;
+  margin: 2px 0;
+}

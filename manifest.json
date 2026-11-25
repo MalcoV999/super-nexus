@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Super Nexus",
+  "version": "1.0.0",
+  "description": "Gestor de decks: copiar nombres, exportar .ydk, YDKE y Omega Code.",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.duelingnexus.com/*"
+      ],
+      "js": [
+        "modules/decks.js",
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}
