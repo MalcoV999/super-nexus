@@ -301,6 +301,8 @@ body.nt-modal-open .nt-badge-warn {
   border-radius: 14px;
   padding: 20px 24px;
   width: min(680px, 92vw);
+  max-height: 90vh;
+  overflow-y: auto;
   color: #ffffff;
   display: flex;
   flex-direction: column;

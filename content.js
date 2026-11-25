@@ -10,7 +10,13 @@ function iniciarSuperNexus() {
   panel.id = 'super-nexus-panel';
   panel.style.display = 'none';
 
-  const posGuardada = JSON.parse(localStorage.getItem('nt_panel_pos') || 'null');
+  let posGuardada = null;
+  try {
+    posGuardada = JSON.parse(localStorage.getItem('nt_panel_pos') || 'null');
+  } catch (e) {
+    posGuardada = null;
+  }
+
   if (posGuardada && typeof posGuardada.x === 'number' && typeof posGuardada.y === 'number') {
     const x = Math.max(10, Math.min(window.innerWidth - 120, posGuardada.x));
     const y = Math.max(10, Math.min(window.innerHeight - 60, posGuardada.y));
@@ -107,7 +113,9 @@ function iniciarSuperNexus() {
     if (!isDragging) return;
     isDragging = false;
     const rect = panel.getBoundingClientRect();
-    localStorage.setItem('nt_panel_pos', JSON.stringify({ x: rect.left, y: rect.top }));
+    try {
+      localStorage.setItem('nt_panel_pos', JSON.stringify({ x: rect.left, y: rect.top }));
+    } catch (e) {}
   });
 }
 
