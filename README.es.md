@@ -4,7 +4,7 @@
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-00d2ff?style=flat-square)
 ![Dependencias](https://img.shields.io/badge/Dependencias-0-success?style=flat-square)
-![Versión](https://img.shields.io/badge/Versi%C3%B3n-1.1.0-7952b3?style=flat-square)
+![Versión](https://img.shields.io/badge/Versi%C3%B3n-1.1.1-7952b3?style=flat-square)
 ![Licencia MIT](https://img.shields.io/badge/Licencia-MIT-blue?style=flat-square)
 
 Extensión de navegador (**Manifest V3**, cero dependencias) para gestionar mazos por lotes en **Dueling Nexus** (`/decks`): exportación `.ydk` / `.zip`, conversor `ydke://` y Omega Code, backups en JSON, comprobación de mazos y borrado múltiple. Pensada para conectar Nexus con **EDOPro** y **YGO Omega**. La interfaz está disponible en **español e inglés**.
@@ -129,7 +129,7 @@ Funciona en **Chrome**, **Brave**, **Edge** y **Opera**. Es una extensión y no 
 
 ### Opción 1: Descargar Release (.zip)
 
-1. Descarga el último `super-nexus-v1.1.0.zip` desde [Releases](https://github.com/MalcoV999/super-nexus/releases).
+1. Descarga el último `super-nexus-v1.1.1.zip` desde [Releases](https://github.com/MalcoV999/super-nexus/releases).
 2. Extrae el `.zip` en una carpeta de tu PC.
 3. Abre `chrome://extensions/` (o `brave://extensions/`, `edge://extensions/`).
 4. Activa el **Modo de desarrollador** (esquina superior derecha).
@@ -146,7 +146,7 @@ Luego sigue los pasos 3 a 6 de la opción anterior, seleccionando la carpeta `su
 
 ## Roadmap
 
-- [ ] Actualizar el listado de mazos dinámicamente tras importar o borrar (sin recargar toda la página con `location.reload()`)
+- [ ] Actualizar dinámicamente la lista tras importar (el borrado ya actualiza sin `location.reload()`)
 - [ ] Importación masiva de Omega Codes en lote (complementando la importación individual de la plataforma)
 - [ ] Soporte para Firefox (escritorio y Android) y Safari
 - [ ] Publicación en Chrome Web Store / Edge Add-ons
